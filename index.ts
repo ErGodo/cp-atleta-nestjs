@@ -11,7 +11,7 @@ const createFunction = async (expressInstance): Promise<void> => {
   );
 await app.init();
 };
-export const api = functions.https.onRequest(async (request, response) => {
+export const cpAtleta =  functions.https.onRequest(async (request, response) => {
   await createFunction(expressServer);
   expressServer(request, response);
 });
