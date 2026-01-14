@@ -10,14 +10,19 @@ async function bootstrap(): Promise<express.Express> {
   if (!cachedServer) {
     const expressApp = express();
     const app = await NestFactory.create(AppModule, new ExpressAdapter(expressApp));
-    app.enableCors();
+    app.enableCors({
+      origin: ['http://localhost:3000'],
+      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+      credentials: true,
+      allowedHeaders: ['Content-Type', 'Authorization'],
+    });
     await app.init();
     cachedServer = expressApp;
   }
   return cachedServer;
 }
 
-export const api = functions.onRequest(async (req, res) => {
+export const cpAtleta = functions.onRequest({ cors: true }, async (req, res) => {
   const server = await bootstrap();
   server(req, res);
 });
