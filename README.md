@@ -96,3 +96,28 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+
+## Firebase Authentication
+
+This project uses Firebase Authentication to secure API endpoints.
+
+### Configuration
+
+1. **Local Development**:
+   - Set the `GOOGLE_APPLICATION_CREDENTIALS` environment variable to create the path of your Firebase service account key JSON file.
+   - Example (Windows): `set GOOGLE_APPLICATION_CREDENTIALS=path\to\service-account.json`
+   - Example (Linux/Mac): `export GOOGLE_APPLICATION_CREDENTIALS="path/to/service-account.json"`
+
+2. **Cloud Run**:
+   - The application automatically uses the default service account (Application Default Credentials), so no extra configuration is needed if the service account has the correct permissions.
+
+### Testing Protected Endpoints
+
+To test protected endpoints, you need a valid Firebase ID Token.
+
+1. Obtain an ID Token using the Firebase Client SDK or the Firebase Auth REST API.
+2. Make a request with the token in the Authorization header:
+
+```bash
+curl -H "Authorization: Bearer <YOUR_FIREBASE_ID_TOKEN>" http://localhost:3000/athletes/test-auth
+```

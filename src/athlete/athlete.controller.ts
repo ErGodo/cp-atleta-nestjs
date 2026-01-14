@@ -1,14 +1,21 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Req, UseGuards } from '@nestjs/common';
+import { FirebaseAuthGuard } from '../firebase/firebase-auth.guard';
 import { AthleteService } from '../services/athlete.service';
 import { Athlete } from './athlete.entity';
 
 @Controller('athletes')
 export class AthleteController {
-  constructor(private readonly athleteService: AthleteService) {}
+  constructor(private readonly athleteService: AthleteService) { }
 
   @Post()
   async create(@Body() athleteData: Partial<Athlete>): Promise<Athlete> {
     return this.athleteService.create(athleteData);
+  }
+
+  @Get('test-auth')
+  @UseGuards(FirebaseAuthGuard)
+  testAuth(@Req() req) {
+    return { message: 'Authentication successful', user: req.user };
   }
 
   @Get()

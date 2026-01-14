@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -13,34 +12,30 @@ import { AthleteSportProfile } from './athlete-sport-profile/athlete-sport-profi
 import { AthleteSportProfileModule } from './athlete-sport-profile/athlete-sport-profile.module';
 import { Athlete } from './athlete/athlete.entity';
 import { AthleteModule } from './athlete/athlete.module';
+import { FirebaseModule } from './firebase/firebase.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-      envFilePath: '.env',
-    }),
     TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      useFactory: (configService: ConfigService) => ({
+      useFactory: () => ({
         type: 'postgres',
-        host: configService.get<string>('DB_HOST'),
-        port: configService.get<number>('DB_PORT'),
-        username: configService.get<string>('DB_USER'),
-        password: configService.get<string>('DB_PASSWORD'),
-        database: configService.get<string>('DB_DATABASE'),
+        host: process.env.DB_HOST!,
+        port: parseInt(process.env.DB_PORT!, 10),
+        username: process.env.DB_USER!,
+        password: process.env.DB_PASSWORD!,
+        database: process.env.DB_DATABASE!,
         entities: [Athlete, AthleteContact, AthleteEligibility, AthleteProfile, AthleteSportProfile],
-        synchronize: true, // Set to false in production
+        synchronize: false, // Set to false in production
       }),
-      inject: [ConfigService],
     }),
     AthleteModule,
     AthleteContactModule,
     AthleteEligibilityModule,
     AthleteProfileModule,
     AthleteSportProfileModule,
+    FirebaseModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
