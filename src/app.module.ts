@@ -25,7 +25,7 @@ import { FirebaseModule } from './firebase/firebase.module';
         password: process.env.DB_PASSWORD!,
         database: process.env.DB_DATABASE!,
         entities: [Athlete, AthleteContact, AthleteEligibility, AthleteProfile, AthleteSportProfile],
-        synchronize: false, // Set to false in production
+        synchronize: true, // Set to false in production
       }),
     }),
     AthleteModule,

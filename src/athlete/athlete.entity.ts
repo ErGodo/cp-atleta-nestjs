@@ -8,7 +8,7 @@ export class Athlete {
   @Column('uuid')
   fkClub: string;
 
-  @Column('uuid', { nullable: true })
+  @Column('text', { nullable: true })
   fkUser: string;
 
   @Column('text')
