@@ -18,8 +18,13 @@ export class AthleteEligibility {
   @Column('boolean', { default: false })
   consentMedia: boolean;
 
+
   @Column('boolean', { default: true })
   consentDataProcessing: boolean;
+
+
+  @Column('boolean', { default: false })
+  isUnavailable: boolean;
 
   @CreateDateColumn()
   createdAt: Date;
