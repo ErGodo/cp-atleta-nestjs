@@ -5,7 +5,7 @@ export class Club {
     @PrimaryGeneratedColumn('uuid')
     pkClub: string;
 
-    @Column('text')
+    @Column('text', { nullable: true })
     name: string;
 
     @Column('text', { nullable: true })
