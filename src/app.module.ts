@@ -12,6 +12,7 @@ import { AthleteSportProfile } from './athlete-sport-profile/athlete-sport-profi
 import { AthleteSportProfileModule } from './athlete-sport-profile/athlete-sport-profile.module';
 import { Athlete } from './athlete/athlete.entity';
 import { AthleteModule } from './athlete/athlete.module';
+import { Club } from './club/club.entity';
 import { FirebaseModule } from './firebase/firebase.module';
 
 @Module({
@@ -24,7 +25,7 @@ import { FirebaseModule } from './firebase/firebase.module';
         username: process.env.DB_USER!,
         password: process.env.DB_PASSWORD!,
         database: process.env.DB_DATABASE!,
-        entities: [Athlete, AthleteContact, AthleteEligibility, AthleteProfile, AthleteSportProfile],
+        entities: [Athlete, AthleteContact, AthleteEligibility, AthleteProfile, AthleteSportProfile, Club],
         synchronize: true, // Set to false in production
       }),
     }),

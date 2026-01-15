@@ -9,19 +9,8 @@ export class AthleteEligibility {
   @Column('uuid')
   fkAthlete: string;
 
-  @Column('date', { nullable: true })
-  medicalClearanceValidUntil: Date;
-
-  @Column('date', { nullable: true })
-  insuranceValidUntil: Date;
-
   @Column('boolean', { default: false })
-  consentMedia: boolean;
-
-
-  @Column('boolean', { default: true })
-  consentDataProcessing: boolean;
-
+  isInjured: boolean;
 
   @Column('boolean', { default: false })
   isUnavailable: boolean;

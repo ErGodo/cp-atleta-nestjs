@@ -1,9 +1,14 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Club } from '../club/club.entity';
 
 @Entity('Athlete')
 export class Athlete {
   @PrimaryGeneratedColumn('uuid')
   pkAthlete: string;
+
+  @ManyToOne(() => Club)
+  @JoinColumn({ name: 'fkClub' })
+  club: Club;
 
   @Column('uuid')
   fkClub: string;
@@ -34,13 +39,4 @@ export class Athlete {
 
   @UpdateDateColumn()
   updatedAt: Date;
-
-  // Relations (assuming Club and User entities exist)
-  // @ManyToOne(() => Club)
-  // @JoinColumn({ name: 'fkClub' })
-  // club: Club;
-
-  // @ManyToOne(() => User)
-  // @JoinColumn({ name: 'fkUser' })
-  // user: User;
 }
