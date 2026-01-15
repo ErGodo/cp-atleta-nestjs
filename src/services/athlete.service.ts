@@ -8,7 +8,7 @@ export class AthleteService {
   constructor(
     @InjectRepository(Athlete)
     private athleteRepository: Repository<Athlete>,
-  ) {}
+  ) { }
 
   async create(athleteData: Partial<Athlete>): Promise<Athlete> {
     const athlete = this.athleteRepository.create(athleteData);

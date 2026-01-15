@@ -24,6 +24,9 @@ export class AthleteSportProfile {
   @Column('integer', { nullable: true })
   weightKg: number;
 
+  @Column('integer', { nullable: true })
+  jerseyNumber: number;
+
   @Column('text', { nullable: true })
   skillLevel: string;
 

@@ -9,4 +9,4 @@ import { Athlete } from './athlete.entity';
   providers: [AthleteService],
   controllers: [AthleteController],
 })
-export class AthleteModule {}
+export class AthleteModule { }
