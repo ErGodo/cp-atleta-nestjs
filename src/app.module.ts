@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { AthleteClubCategory } from './athlete-club-category/athlete-club-category.entity';
+import { AthleteClubCategoryModule } from './athlete-club-category/athlete-club-category.module';
 import { AthleteContact } from './athlete-contact/athlete-contact.entity';
 import { AthleteContactModule } from './athlete-contact/athlete-contact.module';
 import { AthleteEligibility } from './athlete-eligibility/athlete-eligibility.entity';
@@ -12,7 +14,7 @@ import { AthleteSportProfile } from './athlete-sport-profile/athlete-sport-profi
 import { AthleteSportProfileModule } from './athlete-sport-profile/athlete-sport-profile.module';
 import { Athlete } from './athlete/athlete.entity';
 import { AthleteModule } from './athlete/athlete.module';
-import { Club } from './club/club.entity';
+
 import { FirebaseModule } from './firebase/firebase.module';
 
 @Module({
@@ -25,7 +27,7 @@ import { FirebaseModule } from './firebase/firebase.module';
         username: process.env.DB_USER!,
         password: process.env.DB_PASSWORD!,
         database: process.env.DB_DATABASE!,
-        entities: [Athlete, AthleteContact, AthleteEligibility, AthleteProfile, AthleteSportProfile, Club],
+        entities: [Athlete, AthleteContact, AthleteEligibility, AthleteProfile, AthleteSportProfile, AthleteClubCategory],
         synchronize: false, // Set to false for manual schema control
       }),
     }),
@@ -34,6 +36,7 @@ import { FirebaseModule } from './firebase/firebase.module';
     AthleteEligibilityModule,
     AthleteProfileModule,
     AthleteSportProfileModule,
+    AthleteClubCategoryModule,
     FirebaseModule,
   ],
   controllers: [AppController],

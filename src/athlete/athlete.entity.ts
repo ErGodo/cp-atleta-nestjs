@@ -1,14 +1,13 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
-import { Club } from '../club/club.entity';
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { AthleteClubCategory } from '../athlete-club-category/athlete-club-category.entity';
+
 
 @Entity('Athlete')
 export class Athlete {
   @PrimaryGeneratedColumn('uuid')
   pkAthlete: string;
 
-  @ManyToOne(() => Club)
-  @JoinColumn({ name: 'fkClub' })
-  club: Club;
+
 
   @Column('uuid')
   fkClub: string;
@@ -36,6 +35,9 @@ export class Athlete {
 
   @CreateDateColumn()
   createdAt: Date;
+
+  @OneToMany(() => AthleteClubCategory, (acc) => acc.athlete)
+  athleteClubCategories: AthleteClubCategory[];
 
   @UpdateDateColumn()
   updatedAt: Date;
