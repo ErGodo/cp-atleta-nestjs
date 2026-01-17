@@ -42,6 +42,13 @@ export class AthleteClubCategoryService {
         return await this.athleteClubCategoryRepository.find({ where: { fkAthlete: athleteId } });
     }
 
+    async findByCategory(categoryId: string): Promise<AthleteClubCategory[]> {
+        return await this.athleteClubCategoryRepository.find({
+            where: { fkClubCategory: categoryId },
+            relations: ['athlete', 'athlete.sportProfile', 'clubCategory'],
+        });
+    }
+
     async update(id: string, updateDto: UpdateAthleteClubCategoryDto): Promise<AthleteClubCategory> {
         const record = await this.findOne(id);
         this.athleteClubCategoryRepository.merge(record, updateDto);

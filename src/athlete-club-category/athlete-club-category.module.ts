@@ -5,8 +5,10 @@ import { AthleteClubCategoryController } from './athlete-club-category.controlle
 import { AthleteClubCategory } from './athlete-club-category.entity';
 import { AthleteClubCategoryService } from './athlete-club-category.service';
 
+import { ClubCategory } from './club-category.entity';
+
 @Module({
-    imports: [TypeOrmModule.forFeature([AthleteClubCategory, Athlete])],
+    imports: [TypeOrmModule.forFeature([AthleteClubCategory, Athlete, ClubCategory])],
     controllers: [AthleteClubCategoryController],
     providers: [AthleteClubCategoryService],
     exports: [AthleteClubCategoryService],

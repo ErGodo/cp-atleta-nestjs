@@ -27,6 +27,11 @@ export class AthleteClubCategoryController {
         return this.athleteClubCategoryService.findByAthlete(athleteId);
     }
 
+    @Get('category/:categoryId')
+    findByCategory(@Param('categoryId') categoryId: string) {
+        return this.athleteClubCategoryService.findByCategory(categoryId);
+    }
+
     @Patch(':id')
     update(@Param('id') id: string, @Body() updateDto: UpdateAthleteClubCategoryDto) {
         return this.athleteClubCategoryService.update(id, updateDto);

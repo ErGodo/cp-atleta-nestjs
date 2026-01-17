@@ -1,5 +1,6 @@
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { AthleteClubCategory } from '../athlete-club-category/athlete-club-category.entity';
+import { AthleteSportProfile } from '../athlete-sport-profile/athlete-sport-profile.entity';
 
 
 @Entity('Athlete')
@@ -38,6 +39,9 @@ export class Athlete {
 
   @OneToMany(() => AthleteClubCategory, (acc) => acc.athlete)
   athleteClubCategories: AthleteClubCategory[];
+
+  @OneToOne(() => AthleteSportProfile, (profile) => profile.athlete)
+  sportProfile: AthleteSportProfile;
 
   @UpdateDateColumn()
   updatedAt: Date;

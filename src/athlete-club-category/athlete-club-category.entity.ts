@@ -1,5 +1,6 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { Athlete } from '../athlete/athlete.entity';
+import { ClubCategory } from './club-category.entity';
 
 
 @Entity('AthleteClubCategory')
@@ -13,6 +14,10 @@ export class AthleteClubCategory {
 
     @Column('uuid')
     fkAthlete: string;
+
+    @ManyToOne(() => ClubCategory)
+    @JoinColumn({ name: 'fkClubCategory' })
+    clubCategory: ClubCategory;
 
     @Column('uuid')
     fkClubCategory: string;
