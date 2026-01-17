@@ -17,6 +17,8 @@ import { AthleteModule } from './athlete/athlete.module';
 
 import { FirebaseModule } from './firebase/firebase.module';
 
+import { ClubCategory } from './athlete-club-category/club-category.entity';
+
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
@@ -27,7 +29,7 @@ import { FirebaseModule } from './firebase/firebase.module';
         username: process.env.DB_USER!,
         password: process.env.DB_PASSWORD!,
         database: process.env.DB_DATABASE!,
-        entities: [Athlete, AthleteContact, AthleteEligibility, AthleteProfile, AthleteSportProfile, AthleteClubCategory],
+        entities: [Athlete, AthleteContact, AthleteEligibility, AthleteProfile, AthleteSportProfile, AthleteClubCategory, ClubCategory],
         synchronize: false, // Set to false for manual schema control
       }),
     }),
