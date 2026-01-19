@@ -33,7 +33,7 @@ import { ClubCategory } from './athlete-club-category/club-category.entity';
         password: process.env.DB_PASSWORD!,
         database: process.env.DB_DATABASE!,
         entities: [Athlete, AthleteContact, AthleteEligibility, AthleteProfile, AthleteSportProfile, AthleteClubCategory, ClubCategory, AthletePlan],
-        synchronize: false, // Set to false for manual schema control
+        synchronize: true, // Auto-sync enabled permanently by user request
       }),
     }),
     AthleteModule,
