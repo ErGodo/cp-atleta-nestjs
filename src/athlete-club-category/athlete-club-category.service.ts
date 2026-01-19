@@ -42,11 +42,20 @@ export class AthleteClubCategoryService {
         return await this.athleteClubCategoryRepository.find({ where: { fkAthlete: athleteId } });
     }
 
-    async findByCategory(categoryId: string): Promise<AthleteClubCategory[]> {
-        return await this.athleteClubCategoryRepository.find({
+    async findByCategory(categoryId: string, page: number = 1, limit: number = 10): Promise<{ data: AthleteClubCategory[], total: number, page: number, totalPages: number }> {
+        const [data, total] = await this.athleteClubCategoryRepository.findAndCount({
             where: { fkClubCategory: categoryId },
             relations: ['athlete', 'athlete.sportProfile', 'clubCategory'],
+            skip: (page - 1) * limit,
+            take: limit,
         });
+
+        return {
+            data,
+            total,
+            page,
+            totalPages: Math.ceil(total / limit)
+        };
     }
 
     async update(id: string, updateDto: UpdateAthleteClubCategoryDto): Promise<AthleteClubCategory> {

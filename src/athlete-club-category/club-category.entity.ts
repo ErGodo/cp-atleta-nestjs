@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('club_category')
 export class ClubCategory {
@@ -29,9 +29,9 @@ export class ClubCategory {
     @Column('boolean', { default: false, name: 'is_main' })
     isMain: boolean;
 
-    @CreateDateColumn()
-    createdAt: Date;
+    // @CreateDateColumn()
+    // createdAt: Date;
 
-    @UpdateDateColumn()
-    updatedAt: Date;
+    // @UpdateDateColumn()
+    // updatedAt: Date;
 }

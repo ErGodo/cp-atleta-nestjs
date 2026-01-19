@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
 import { AthleteClubCategoryService } from './athlete-club-category.service';
 import { CreateAthleteClubCategoryDto } from './dto/create-athlete-club-category.dto';
 import { UpdateAthleteClubCategoryDto } from './dto/update-athlete-club-category.dto';
@@ -28,8 +28,12 @@ export class AthleteClubCategoryController {
     }
 
     @Get('category/:categoryId')
-    findByCategory(@Param('categoryId') categoryId: string) {
-        return this.athleteClubCategoryService.findByCategory(categoryId);
+    findByCategory(
+        @Param('categoryId') categoryId: string,
+        @Query('page') page: number = 1,
+        @Query('limit') limit: number = 10,
+    ) {
+        return this.athleteClubCategoryService.findByCategory(categoryId, Number(page), Number(limit));
     }
 
     @Patch(':id')
