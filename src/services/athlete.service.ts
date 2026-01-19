@@ -16,13 +16,12 @@ export class AthleteService {
   }
 
   async findAll(): Promise<Athlete[]> {
-    return this.athleteRepository.find({ relations: ['club'] });
+    return this.athleteRepository.find();
   }
 
   async findOne(pkAthlete: string): Promise<Athlete> {
     const athlete = await this.athleteRepository.findOne({
       where: { pkAthlete },
-      relations: ['club'],
     });
     if (!athlete) {
       throw new NotFoundException(`Athlete with ID ${pkAthlete} not found`);

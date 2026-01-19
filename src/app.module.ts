@@ -15,6 +15,8 @@ import { AthleteSportProfileModule } from './athlete-sport-profile/athlete-sport
 import { Athlete } from './athlete/athlete.entity';
 import { AthleteModule } from './athlete/athlete.module';
 
+import { AthletePlanModule } from './athlete-plan/athlete-plan.module';
+
 import { FirebaseModule } from './firebase/firebase.module';
 
 import { ClubCategory } from './athlete-club-category/club-category.entity';
@@ -29,7 +31,7 @@ import { ClubCategory } from './athlete-club-category/club-category.entity';
         username: process.env.DB_USER!,
         password: process.env.DB_PASSWORD!,
         database: process.env.DB_DATABASE!,
-        entities: [Athlete, AthleteContact, AthleteEligibility, AthleteProfile, AthleteSportProfile, AthleteClubCategory, ClubCategory],
+        entities: [Athlete, AthleteContact, AthleteEligibility, AthleteProfile, AthleteSportProfile, AthleteClubCategory, ClubCategory, AthletePlan],
         synchronize: false, // Set to false for manual schema control
       }),
     }),
@@ -39,6 +41,7 @@ import { ClubCategory } from './athlete-club-category/club-category.entity';
     AthleteProfileModule,
     AthleteSportProfileModule,
     AthleteClubCategoryModule,
+    AthletePlanModule,
     FirebaseModule,
   ],
   controllers: [AppController],
