@@ -15,6 +15,7 @@ import { AthleteSportProfileModule } from './athlete-sport-profile/athlete-sport
 import { Athlete } from './athlete/athlete.entity';
 import { AthleteModule } from './athlete/athlete.module';
 
+import { AthletePlan } from './athlete-plan/athlete-plan.entity';
 import { AthletePlanModule } from './athlete-plan/athlete-plan.module';
 
 import { FirebaseModule } from './firebase/firebase.module';
