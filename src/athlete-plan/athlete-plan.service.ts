@@ -38,13 +38,26 @@ export class AthletePlanService {
         return await this.athletePlanRepository.save(newPlan);
     }
 
-    async getCurrentPlan(athleteId: string): Promise<AthletePlan | null> {
-        return await this.athletePlanRepository.findOne({
+    async getCurrentPlan(athleteId: string): Promise<any> {
+        const currentPlan = await this.athletePlanRepository.findOne({
             where: {
                 fk_athlete: athleteId,
                 endDate: IsNull(),
             },
+            relations: ['plan'],
         });
+
+        if (!currentPlan || !currentPlan.plan) {
+            return null;
+        }
+
+        return {
+            planName: currentPlan.plan.name,
+            price: Number(currentPlan.plan.price),
+            currency: currentPlan.plan.currency,
+            billingPeriod: currentPlan.plan.billingPeriod,
+            status: 'active',
+        };
     }
 
     async getHistory(athleteId: string): Promise<AthletePlan[]> {

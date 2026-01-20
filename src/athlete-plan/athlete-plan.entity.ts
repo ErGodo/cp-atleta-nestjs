@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, Index, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Plan } from './plan.entity';
 
 @Entity('AthletePlans')
 export class AthletePlan {
@@ -11,6 +12,10 @@ export class AthletePlan {
 
     @Column('uuid')
     fk_plan: string;
+
+    @ManyToOne(() => Plan)
+    @JoinColumn({ name: 'fk_plan' })
+    plan: Plan;
 
     @CreateDateColumn({ name: 'assigned_at' })
     assignedAt: Date;

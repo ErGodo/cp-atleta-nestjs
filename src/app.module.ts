@@ -17,6 +17,7 @@ import { AthleteModule } from './athlete/athlete.module';
 
 import { AthletePlan } from './athlete-plan/athlete-plan.entity';
 import { AthletePlanModule } from './athlete-plan/athlete-plan.module';
+import { Plan } from './athlete-plan/plan.entity';
 
 import { FirebaseModule } from './firebase/firebase.module';
 
@@ -32,7 +33,7 @@ import { ClubCategory } from './athlete-club-category/club-category.entity';
         username: process.env.DB_USER!,
         password: process.env.DB_PASSWORD!,
         database: process.env.DB_DATABASE!,
-        entities: [Athlete, AthleteContact, AthleteEligibility, AthleteProfile, AthleteSportProfile, AthleteClubCategory, ClubCategory, AthletePlan],
+        entities: [Athlete, AthleteContact, AthleteEligibility, AthleteProfile, AthleteSportProfile, AthleteClubCategory, ClubCategory, AthletePlan, Plan],
         synchronize: true, // Auto-sync enabled permanently by user request
       }),
     }),
