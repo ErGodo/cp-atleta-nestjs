@@ -4,11 +4,15 @@ import { IsNull, Repository } from 'typeorm';
 import { AthletePlan } from './athlete-plan.entity';
 import { AssignPlanDto } from './dto/assign-plan.dto';
 
+import { Plan } from './plan.entity';
+
 @Injectable()
 export class AthletePlanService {
     constructor(
         @InjectRepository(AthletePlan)
         private readonly athletePlanRepository: Repository<AthletePlan>,
+        @InjectRepository(Plan)
+        private readonly planRepository: Repository<Plan>,
     ) { }
 
     async assignPlan(athleteId: string, dto: AssignPlanDto): Promise<AthletePlan> {
@@ -39,6 +43,7 @@ export class AthletePlanService {
     }
 
     async getCurrentPlan(athleteId: string): Promise<any> {
+        console.log(`[getCurrentPlan] Fetching plan for athlete: ${athleteId}`);
         const currentPlan = await this.athletePlanRepository.findOne({
             where: {
                 fk_athlete: athleteId,
@@ -47,15 +52,38 @@ export class AthletePlanService {
             relations: ['plan'],
         });
 
-        if (!currentPlan || !currentPlan.plan) {
-            return null;
+        if (!currentPlan) {
+            console.log(`[getCurrentPlan] No active plan found in AthletePlans for athlete: ${athleteId}`);
+            return {
+                status: 'no-active-plan',
+                message: 'No active plan assigned to this athlete.',
+            };
+        }
+
+        let planDetails: Plan | null = currentPlan.plan;
+
+        // Fallback: Si el join falló pero tenemos fk_plan, buscamos manual
+        if (!planDetails && currentPlan.fk_plan) {
+            console.log(`[getCurrentPlan] Join failed, fetching plan manually. fk_plan: ${currentPlan.fk_plan}`);
+            planDetails = await this.planRepository.findOne({
+                where: { id: currentPlan.fk_plan },
+            });
+        }
+
+        if (!planDetails) {
+            console.error(`[getCurrentPlan] Plan details not found for fk_plan: ${currentPlan.fk_plan}`);
+            return {
+                status: 'error',
+                message: 'Plan definition not found in database.',
+                debug_fk_plan: currentPlan.fk_plan
+            };
         }
 
         return {
-            planName: currentPlan.plan.name,
-            price: Number(currentPlan.plan.price),
-            currency: currentPlan.plan.currency,
-            billingPeriod: currentPlan.plan.billingPeriod,
+            planName: planDetails.name,
+            price: Number(planDetails.price),
+            currency: planDetails.currency,
+            billingPeriod: planDetails.billingPeriod,
             status: 'active',
         };
     }

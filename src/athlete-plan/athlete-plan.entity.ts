@@ -10,7 +10,7 @@ export class AthletePlan {
     @Index()
     fk_athlete: string;
 
-    @Column('uuid')
+    @Column({ type: 'uuid', insert: false, update: false })
     fk_plan: string;
 
     @ManyToOne(() => Plan)
