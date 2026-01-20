@@ -79,12 +79,33 @@ export class AthletePlanService {
             };
         }
 
+        // Calcular fecha de vencimiento
+        const assignedAt = new Date(currentPlan.assignedAt);
+        const expirationDate = new Date(assignedAt);
+
+        const period = planDetails.billingPeriod?.toLowerCase();
+        if (period === 'monthly') {
+            expirationDate.setMonth(expirationDate.getMonth() + 1);
+        } else if (period === 'yearly' || period === 'anual') {
+            expirationDate.setFullYear(expirationDate.getFullYear() + 1);
+        } else {
+            // Default 30 days if unknown
+            expirationDate.setDate(expirationDate.getDate() + 30);
+        }
+
+        const now = new Date();
+        const status = expirationDate > now ? 'active' : 'expired';
+
         return {
+            planId: planDetails.id,
             planName: planDetails.name,
             price: Number(planDetails.price),
             currency: planDetails.currency,
             billingPeriod: planDetails.billingPeriod,
-            status: 'active',
+            status: status,
+            assignedAt: assignedAt,
+            expirationDate: expirationDate,
+            daysRemaining: Math.ceil((expirationDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24))
         };
     }
 
