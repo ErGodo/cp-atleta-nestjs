@@ -1,22 +1,28 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('Plans')
+@Entity('Plan')
 export class Plan {
-    @PrimaryGeneratedColumn('increment') // Changed from 'uuid' to match existing Integer PKs
+    @PrimaryGeneratedColumn('increment')
     id: number;
 
-    @Column('text')
+    @Column({ type: 'varchar', length: 255, nullable: true })
     name: string;
 
-    @Column('numeric')
+    @Column({ type: 'text', nullable: true })
+    description: string;
+
+    @Column({ type: 'numeric', precision: 10, scale: 2, nullable: true })
     price: number;
 
-    @Column('text')
+    @Column({ type: 'varchar', length: 50, nullable: true })
     currency: string;
 
-    @Column('text', { name: 'billing_period' })
+    @Column({ name: 'billingFrequency', type: 'varchar', length: 50, nullable: true })
     billingPeriod: string;
 
-    @Column('text', { default: 'active' })
+    @Column({ type: 'varchar', length: 50, nullable: true })
+    type: string;
+
+    @Column({ type: 'varchar', length: 50, default: 'active', nullable: true })
     status: string;
 }

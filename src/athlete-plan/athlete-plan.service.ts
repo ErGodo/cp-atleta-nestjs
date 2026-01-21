@@ -31,9 +31,17 @@ export class AthletePlanService {
         }
 
         // 3. Crear el nuevo registro
+        // 3. Crear el nuevo registro
+        const idToSearch = Number(dto.planId || dto.idPlan);
+        const planEntity = await this.planRepository.findOne({ where: { id: idToSearch } });
+        if (!planEntity) {
+            throw new Error(`Plan with ID ${idToSearch} not found`);
+        }
+
         const newPlan = this.athletePlanRepository.create({
             fk_athlete: athleteId,
-            plan: { id: Number(dto.planId) },
+            plan: planEntity,
+            fk_plan_id: planEntity.id,
             metadata: dto.metadata,
             endDate: null,
             // assignedAt se llena automáticamente por @CreateDateColumn
@@ -62,20 +70,20 @@ export class AthletePlanService {
 
         let planDetails: Plan | null = currentPlan.plan;
 
-        // Fallback: Si el join falló pero tenemos fk_plan, buscamos manual
-        if (!planDetails && currentPlan.fk_plan) {
-            console.log(`[getCurrentPlan] Join failed, fetching plan manually. fk_plan: ${currentPlan.fk_plan}`);
+        // Fallback: Si el join falló pero tenemos fk_plan_id, buscamos manual
+        if (!planDetails && currentPlan.fk_plan_id) {
+            console.log(`[getCurrentPlan] Join failed, fetching plan manually. fk_plan: ${currentPlan.fk_plan_id}`);
             planDetails = await this.planRepository.findOne({
-                where: { id: currentPlan.fk_plan },
+                where: { id: currentPlan.fk_plan_id },
             });
         }
 
         if (!planDetails) {
-            console.error(`[getCurrentPlan] Plan details not found for fk_plan: ${currentPlan.fk_plan}`);
+            console.error(`[getCurrentPlan] Plan details not found for fk_plan: ${currentPlan.fk_plan_id}`);
             return {
                 status: 'error',
                 message: 'Plan definition not found in database.',
-                debug_fk_plan: currentPlan.fk_plan
+                debug_fk_plan: currentPlan.fk_plan_id
             };
         }
 

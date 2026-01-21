@@ -10,8 +10,9 @@ export class AthletePlan {
     @Index()
     fk_athlete: string;
 
-    @Column({ type: 'int', insert: false, update: false }) // Changed to int
-    fk_plan: number;
+    // Explicit column for manual assignment to fix NOT NULL error
+    @Column({ name: 'fk_plan', type: 'int' })
+    fk_plan_id: number;
 
     @ManyToOne(() => Plan)
     @JoinColumn({ name: 'fk_plan' })
