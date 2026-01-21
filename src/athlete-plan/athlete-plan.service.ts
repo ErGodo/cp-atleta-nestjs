@@ -33,7 +33,7 @@ export class AthletePlanService {
         // 3. Crear el nuevo registro
         const newPlan = this.athletePlanRepository.create({
             fk_athlete: athleteId,
-            fk_plan: dto.planId,
+            plan: { id: Number(dto.planId) },
             metadata: dto.metadata,
             endDate: null,
             // assignedAt se llena automáticamente por @CreateDateColumn
