@@ -2,8 +2,8 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('Plans')
 export class Plan {
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
+    @PrimaryGeneratedColumn('increment') // Changed from 'uuid' to match existing Integer PKs
+    id: number;
 
     @Column('text')
     name: string;

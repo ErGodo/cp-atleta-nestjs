@@ -10,8 +10,8 @@ export class AthletePlan {
     @Index()
     fk_athlete: string;
 
-    @Column({ type: 'uuid', insert: false, update: false })
-    fk_plan: string;
+    @Column({ type: 'int', insert: false, update: false }) // Changed to int
+    fk_plan: number;
 
     @ManyToOne(() => Plan)
     @JoinColumn({ name: 'fk_plan' })
