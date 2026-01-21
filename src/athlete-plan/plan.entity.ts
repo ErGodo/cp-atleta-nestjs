@@ -25,4 +25,10 @@ export class Plan {
 
     @Column({ type: 'varchar', length: 50, default: 'active', nullable: true })
     status: string;
+
+    @Column({ name: 'fk_club', type: 'int', nullable: true })
+    fkClub: number;
+
+    @Column({ type: 'text', nullable: true })
+    features: string;
 }
