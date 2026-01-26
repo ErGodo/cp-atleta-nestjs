@@ -39,7 +39,10 @@ export class AthleteClubCategoryService {
     }
 
     async findByAthlete(athleteId: string): Promise<AthleteClubCategory[]> {
-        return await this.athleteClubCategoryRepository.find({ where: { fkAthlete: athleteId } });
+        return await this.athleteClubCategoryRepository.find({
+            where: { fkAthlete: athleteId },
+            relations: ['clubCategory']
+        });
     }
 
     async findByCategory(categoryId: string, page: number = 1, limit: number = 10): Promise<{ data: AthleteClubCategory[], total: number, page: number, totalPages: number }> {
