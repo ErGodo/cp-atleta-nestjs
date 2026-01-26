@@ -22,7 +22,7 @@ export class AthleteService {
   async findByClub(fkClub: string): Promise<Athlete[]> {
     return this.athleteRepository.find({
       where: { fkClub },
-      relations: ['athleteClubCategories', 'athleteClubCategories.clubCategory'],
+      relations: ['athleteClubCategories', 'athleteClubCategories.clubCategory', 'sportProfile'],
     });
   }
 
