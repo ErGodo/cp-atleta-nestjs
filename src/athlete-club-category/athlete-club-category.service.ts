@@ -43,6 +43,10 @@ export class AthleteClubCategoryService {
     }
 
     async findByCategory(categoryId: string, page: number = 1, limit: number = 10): Promise<{ data: AthleteClubCategory[], total: number, page: number, totalPages: number }> {
+        if (!categoryId || categoryId === 'undefined' || categoryId === 'null') {
+            return { data: [], total: 0, page, totalPages: 0 };
+        }
+
         const [data, total] = await this.athleteClubCategoryRepository.findAndCount({
             where: { fkClubCategory: categoryId },
             relations: ['athlete', 'athlete.sportProfile', 'clubCategory'],

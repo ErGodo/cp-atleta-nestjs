@@ -19,6 +19,19 @@ export class AthleteService {
     return this.athleteRepository.find();
   }
 
+  async findByClub(fkClub: string): Promise<Athlete[]> {
+    return this.athleteRepository.find({
+      where: { fkClub },
+      relations: ['athleteClubCategories', 'athleteClubCategories.clubCategory'],
+    });
+  }
+
+  async findUnassignedByClub(fkClub: string): Promise<Athlete[]> {
+    // We find athletes where the athleteClubCategories array is empty
+    const allClubAthletes = await this.findByClub(fkClub);
+    return allClubAthletes.filter(athlete => !athlete.athleteClubCategories || athlete.athleteClubCategories.length === 0);
+  }
+
   async findOne(pkAthlete: string): Promise<Athlete> {
     const athlete = await this.athleteRepository.findOne({
       where: { pkAthlete },

@@ -23,6 +23,16 @@ export class AthleteController {
     return this.athleteService.findAll();
   }
 
+  @Get('club/:clubId')
+  async findByClub(@Param('clubId') clubId: string): Promise<Athlete[]> {
+    return this.athleteService.findByClub(clubId);
+  }
+
+  @Get('club/:clubId/unassigned')
+  async findUnassignedByClub(@Param('clubId') clubId: string): Promise<Athlete[]> {
+    return this.athleteService.findUnassignedByClub(clubId);
+  }
+
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<Athlete> {
     return this.athleteService.findOne(id);

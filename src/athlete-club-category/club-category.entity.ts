@@ -5,10 +5,10 @@ export class ClubCategory {
     @PrimaryGeneratedColumn('uuid')
     pkCategory: string;
 
-    @Column('text')
+    @Column('text', { nullable: true })
     name: string;
 
-    @Column('text')
+    @Column('text', { nullable: true })
     type: string;
 
     @Column('text', { nullable: true })
