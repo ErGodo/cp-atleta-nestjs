@@ -35,6 +35,7 @@ export class AthleteService {
   async findOne(pkAthlete: string): Promise<Athlete> {
     const athlete = await this.athleteRepository.findOne({
       where: { pkAthlete },
+      relations: ['sportProfile'],
     });
     if (!athlete) {
       throw new NotFoundException(`Athlete with ID ${pkAthlete} not found`);
