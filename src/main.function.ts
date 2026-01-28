@@ -11,7 +11,7 @@ async function bootstrap(): Promise<express.Express> {
     const expressApp = express();
     const app = await NestFactory.create(AppModule, new ExpressAdapter(expressApp));
     app.enableCors({
-      origin: ['http://localhost:3000'],
+      origin: ['http://localhost:3000', 'http://localhost:3010'],
       methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
       credentials: true,
       allowedHeaders: ['Content-Type', 'Authorization'],
